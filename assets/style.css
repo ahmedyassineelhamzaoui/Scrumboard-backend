@@ -1,0 +1,15 @@
+#form-task{
+   width:80% ;
+   position:absolute;
+   left:8%;
+   top:16%;
+}
+body{
+  /* background-color: rgb(203, 203, 199); */
+  background-image: url('bbb.jpg');
+  background-size:cover;
+}
+.x{
+   background: transparent;
+   border:2px solid white;
+}
