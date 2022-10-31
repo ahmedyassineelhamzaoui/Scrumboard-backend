@@ -255,7 +255,7 @@
 				<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">To do (<span id="to-do-tasks-count"><?php echo mysqli_num_rows($resultTodo)?></span>)</h4>
+							<h4 class="panel-title">To do (<span id="to-do-tasks-count"><?php fcount(1);?></span>)</h4>
 							<div class="panel-heading-btn">
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -265,17 +265,8 @@
 						</div>
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="to-do-tasks">
 							<!-- TO DO TASKS HERE -->
-							<?php
-							   
-								while($ligne1 = mysqli_fetch_assoc($resultTodo)){		
-													
-									if(strlen($ligne1["description"])>50){
-										$shortDescription1=substr($ligne1["description"],0,50);
-									}else{
-										$shortDescription1=$ligne["description"];
-									}
-									getTasks(1,$ligne1,$shortDescription1);
-								}
+							<?php	
+								getTasks(1);
 							?>
 						</div>
 					</div>
@@ -283,7 +274,7 @@
 				<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">In Progress (<span id="in-progress-tasks-count"><?php echo mysqli_num_rows($resultInprogress)?></span>)</h4>
+							<h4 class="panel-title">In Progress (<span id="in-progress-tasks-count"><?php fcount(2);?></span>)</h4>
 							<div class="panel-heading-btn">
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -294,14 +285,9 @@
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="in-progress-tasks">
 							<!-- IN PROGRESS TASKS HERE -->
 							<?php
-								while($ligne2 = mysqli_fetch_assoc($resultInprogress)){
-									if(strlen($ligne2["description"])>50){
-										$shortDescription2=substr($ligne2["description"],0,50);
-									}else{
-										$shortDescription2=$ligne2["description"];
-									}
-									getTasks(2,$ligne2,$shortDescription2);
-								}
+								
+									getTasks(2);
+								
 							?>
 						</div>
 					</div>
@@ -309,7 +295,7 @@
 				<div class="col-xl-4 col-lg-6">
 					<div class="panel panel-inverse">
 						<div class="panel-heading">
-							<h4 class="panel-title">Done (<span id="done-tasks-count"><?php echo mysqli_num_rows($resultDone)?></span>)</h4>
+							<h4 class="panel-title">Done (<span id="done-tasks-count"><?php  fcount(3)?></span>)</h4>
 							<div class="panel-heading-btn">
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -320,14 +306,9 @@
 						<div class="list-group list-group-flush rounded-bottom overflow-hidden panel-body p-0" id="done-tasks">
 							<!-- DONE TASKS HERE -->
 							<?php
-								while($ligne3=mysqli_fetch_assoc($resultDone)){
-									if(strlen($ligne3["description"])>50){
-										$shortDescription3=substr($ligne3["description"],0,50);
-									}else{
-										$shortDescription3=$ligne3["description"];
-									}
-									getTasks(3,$ligne3,$shortDescription3);
-								}
+							
+									getTasks(3);
+								
 							?>
 						</div>
 					</div>
@@ -358,13 +339,13 @@
 							<input type="hidden" id="task-id">
 							<div class="mb-3">
 								<label class="form-label">Title</label>
-								<input name="title" type="text" class="form-control" id="task-title"/>
+								<input name="title" type="text" class="form-control" id="task-title" required>
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Type</label>
 								<div class="ms-3">
 									<div class="form-check mb-1">
-										<input class="form-check-input" name="task-type" type="radio" value="Feature" id="task-type-feature"/>
+										<input class="form-check-input" name="task-type" type="radio" value="Feature" id="task-type-feature" checked>
 										<label class="form-check-label" for="task-type-feature">Feature</label>
 									</div>
 									<div class="form-check">
@@ -376,7 +357,7 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Priority</label>
-								<select name="select-priority" class="form-select" id="task-priority">
+								<select name="select-priority" class="form-select" id="task-priority" require>
 									<option value="">Please select</option>
 									<option value="1">High</option>
 									<option value="2">Low</option>
@@ -395,32 +376,35 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Date</label>
-								<input name="task-date" type="date" class="form-control" id="task-date"/>
+								<input name="task-date" type="date" class="form-control" id="task-date" required>
 							</div>
 							<div class="mb-0">
 								<label class="form-label">Description</label>
-								<textarea name="task-description" class="form-control" rows="10" id="task-description"></textarea>
+								<textarea name="task-description" class="form-control" rows="10" id="task-description" required></textarea>
 							</div>
 						
 					</div>
+			
 					<div class="modal-footer">
-						<a href="#" class="btn btn-white" data-bs-dismiss="modal">Cancel</a>
-						<button type="submit" name="delete" class="btn btn-danger task-action-btn" id="task-delete-btn">Delete</a>
-						<button type="submit" name="update" class="btn btn-warning task-action-btn" id="task-update-btn">Update</a>
+						<a class="btn btn-white" data-bs-dismiss="modal">Cancel</a>
 						<button type="submit" name="save" class="btn btn-primary task-action-btn" id="task-save-btn">Save</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+
 	<!-- ================== BEGIN core-js ================== -->
 	<script src="assets/js/vendor.min.js"></script>
 	<script src="assets/js/app.min.js"></script>
+	<script src="sweetalert2.all.min.js"></script>
 	<!-- ================== END core-js ================== -->
 	<script src="scripts.js"></script>
 
 	<script>
 		//reloadTasks();
 	</script>
+	<?php 
+	?>
 </body>
 </html>

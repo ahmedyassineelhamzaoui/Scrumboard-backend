@@ -20,25 +20,25 @@ session_start();
  while($ligne = mysqli_fetch_assoc($result)){
 ?>
                <div id="form-task" >
-				<form  action=""  method="POST" >
+				<form  action="scripts.php"  method="POST" >
 					
 							<!-- This Input Allows Storing Task Index  -->
-							<div class="row">
+					<div class="row">
 								<div class="col">
 							<input name="id" type="hidden" id="task-id" value="<?php echo $ligne["id"];?>">
 							<div class="mb-3">
 								<label class="form-label">Title</label>
-								<input name="title" value="<?php echo $ligne["title"];?>" type="text" class="x form-control" id="task-title"/>
+								<input name="title" value="<?php echo $ligne["title"];?>" type="text" class="x form-control" id="task-title" required>
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Type</label>
 								<div class="ms-3">
 									<div class="form-check mb-1">
-										<input class="form-check-input" <?php echo $ligne["type_id"] == 1 ? 'checked':''?> name="task-type" type="radio" value="Feature" id="task-type-feature"/>
+										<input class="form-check-input" <?php echo $ligne["type_id"] == 1 ? 'checked':''?> name="task-type" type="radio" value="Feature" id="task-type-feature" >
 										<label class="form-check-label" for="task-type-feature">Feature</label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" <?php echo $ligne["type_id"] == 2 ? 'checked':''?> name="task-type" type="radio" value="Bug" id="task-type-bug"/>
+										<input class="form-check-input" <?php echo $ligne["type_id"] == 2 ? 'checked':''?> name="task-type" type="radio" value="Bug" id="task-type-bug" >
 										<label class="form-check-label" for="task-type-bug">Bug</label>
 									</div>
 								</div>
@@ -67,14 +67,14 @@ session_start();
 							<div class="col">
 							<div class="mb-3">
 								<label class="form-label">Date</label>
-								<input value="<?php echo $ligne["task_datetime"];?>" name="task-date" type="date" class="x form-control" id="task-date"/>
+								<input value="<?php echo $ligne["task_datetime"];?>" name="task-date" type="date" class="x form-control" id="task-date" required>
 							</div>
 							<div class="mb-0">
 								<label class="form-label">Description</label>
-								<textarea  name="task-description" class="x form-control" rows="10" id="task-description"><?php echo $ligne["description"];?></textarea>
+								<textarea  name="task-description" class="x form-control" rows="10" id="task-description" required><?php echo $ligne["description"];?></textarea>
 							</div>
 						    </div>
-							</div>
+					</div>
 					<div class="my-2 row ms-0">
 						<a href="index.php" class="col-lg-1 mx-1 btn btn-dark">Cancel</a>
 						<button type="submit" name="delete" class="col-lg-1 mx-1 btn btn-danger task-action-btn" id="task-delete-btn"><a onclick="return confirm('Are you sure you want to delte this task?');">delete</a></button>
@@ -85,47 +85,6 @@ session_start();
 		
                 </div>
 				<?php }?>
-
-                  <?php
-        
-                          
-               
-				@$id=$_POST["id"];
-				@$title=$_POST["title"];
-				@$type=$_POST["task-type"];
-				if($type=="Feature"){
-					$types=1;
-				}else{
-					$types=2;
-				}
-				@$select1=$_POST["select-priority"];
-				@$select2=$_POST["select-status"];
-				@$date=$_POST["task-date"];
-				@$description=$_POST["task-description"];
-				if(isset($_POST["delete"])){
-										
-					$val="DELETE FROM  tasks  WHERE id='$id' ";
-					if (mysqli_query($Connexion,$val)) {
-						echo "task deleted successfully";
-					  } else {
-						echo "Error deleting task: " . mysqli_error($Connexion);
-					  }
-					$_SESSION['message'] = "Task has been deleted successfully !";
-					header('location: index.php');
-				}
-
-				if(isset($_POST['update'])){
-                    $val="UPDATE tasks SET title='$title',type_id='$types' ,priority_id='$select1',status_id='$select2',task_datetime='$date',description='$description' WHERE id='$id'";
-					if (mysqli_query($Connexion,$val)) {
-						echo "task updated successfully";
-					  } else {
-						echo "Error updating task: " . mysqli_error($Connexion);
-					  }
-					$_SESSION['message'] = "Task has been updated successfully !";
-					header('location: index.php');
-                    
-                }
-                  ?>
-
+           
 </body>
 </html>
