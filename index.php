@@ -15,6 +15,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 	<link href="assets/css/vendor.min.css" rel="stylesheet" />
 	<link href="assets/css/default/app.min.css" rel="stylesheet" />
+	<link rel="icon" type="image/x-icon" href="assets/icone.png">
+
 	<link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- ================== END core-css ================== -->
