@@ -15,6 +15,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 	<link href="assets/css/vendor.min.css" rel="stylesheet" />
 	<link href="assets/css/default/app.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- ================== END core-css ================== -->
 </head>
 <body>
@@ -43,7 +45,7 @@
 				<div class="navbar-item navbar-form">
 					<form action="" method="POST" name="search">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Enter keyword" />
+							<input type="text" class="form-control" placeholder="Enter keyword" >
 							<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
 						</div>
 					</form>
@@ -66,7 +68,7 @@
 						</a>
 						<a href="javascript:;" class="dropdown-item media">
 							<div class="media-left">
-								<img src="assets/img/user/user-1.jpg" class="media-object" alt="" />
+								<img src="assets/img/user/user-1.jpg" class="media-object" >
 								<i class="fab fa-facebook-messenger text-blue media-object-icon"></i>
 							</div>
 							<div class="media-body">
@@ -77,7 +79,7 @@
 						</a>
 						<a href="javascript:;" class="dropdown-item media">
 							<div class="media-left">
-								<img src="assets/img/user/user-2.jpg" class="media-object" alt="" />
+								<img src="assets/img/user/user-2.jpg" class="media-object" >
 								<i class="fab fa-facebook-messenger text-blue media-object-icon"></i>
 							</div>
 							<div class="media-body">
@@ -113,7 +115,7 @@
 				
 				<div class="navbar-item navbar-user dropdown">
 					<a href="#" class="navbar-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
-						<img src="assets/img/user/user-13.jpg" alt="" /> 
+						<img src="assets/img/user/user-13.jpg" > 
 						<span>
 							<span class="d-none d-md-inline">Jilali Smith</span>
 							<b class="caret"></b>
@@ -146,7 +148,7 @@
 						<a href="javascript:;" class="menu-profile-link" data-toggle="app-sidebar-profile" data-target="#appSidebarProfileMenu">
 							<div class="menu-profile-cover with-shadow"></div>
 							<div class="menu-profile-image">
-								<img src="assets/img/user/user-13.jpg" alt="" />
+								<img src="assets/img/user/user-13.jpg" >
 							</div>
 							<div class="menu-profile-info">
 								<div class="d-flex align-items-center">
@@ -339,7 +341,8 @@
 							<input type="hidden" id="task-id">
 							<div class="mb-3">
 								<label class="form-label">Title</label>
-								<input name="title" type="text" class="form-control" id="task-title" required>
+								<input name="title" type="text" class="form-control" id="task_title" >
+								<span id="title-erreur" class="d-none text-danger">Please enter a valid title  </span>
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Type</label>
@@ -357,7 +360,7 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Priority</label>
-								<select name="select-priority" class="form-select" id="task-priority" require>
+								<select name="select_priority" class="form-select" id="task-priority" >
 									<option value="">Please select</option>
 									<option value="1">High</option>
 									<option value="2">Low</option>
@@ -367,7 +370,7 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Status</label>
-								<select name="select-status" class="form-select" id="task-status">
+								<select name="select_status" class="form-select" id="task-status">
 									<option value="">Please select</option>
 									<option value="1">To Do</option>
 									<option value="2">In Progress</option>
@@ -376,11 +379,13 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Date</label>
-								<input name="task-date" type="date" class="form-control" id="task-date" required>
+								<input name="task_date" type="date" class="form-control" id="task-date">
+								<span  id="date-erreur" class="d-none text-danger">Please fill in required field  </span>
 							</div>
 							<div class="mb-0">
 								<label class="form-label">Description</label>
-								<textarea name="task-description" class="form-control" rows="10" id="task-description" required></textarea>
+								<textarea name="task_description" class="form-control" rows="10" id="task-description" ></textarea>
+								<span  id="description-erreur" class="d-none text-danger">Please fill in required field  </span>
 							</div>
 						
 					</div>

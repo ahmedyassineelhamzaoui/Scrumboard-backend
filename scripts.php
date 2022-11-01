@@ -27,9 +27,11 @@
         global $Connexion;
         $request = "SELECT * FROM tasks JOIN types ON tasks.type_id=types.idt JOIN priorities ON tasks.priority_id=priorities.idp WHERE status_id='$val'";
         $result  = mysqli_query($Connexion, $request);
+        $x=0;
         while($ligne= mysqli_fetch_assoc($result)){		
+        $x++;
         if(strlen($ligne["description"])>50){
-            $shortDescription=substr($ligne["description"],0,50);
+            $shortDescription=substr($ligne["description"],0,50).'...';
         }else{
             $shortDescription=$ligne["description"];
         }
@@ -43,8 +45,8 @@
             }
             if ($val == 2) {
                 echo  '<div class="spinner-border text-warning spinner-border-sm" role="status">
-        <span class="visually-hidden">Loading...</span>
-        </div>';
+                        <span class="visually-hidden">Loading...</span>
+                        </div>';
             }
             if ($val == 3) {
                 echo '<i class="text-green fa-sharp fa-solid fa-circle-check"></i>';
@@ -54,8 +56,8 @@
             <div class="fw-bolder fs-7 mx-3"></div>
             <div id="title-btn"  class="fw-bolder fs-7 mx-3"><?php echo $ligne["title"]; ?></div>
             <div class="mx-3">
-                <div class="fw-light">#<span id="id-btn"><?php echo $ligne["id"]; ?></span> created in<span id="date-btn"><?php echo $ligne["task_datetime"]; ?></span> </div>
-                <div id="description-btn" class="fst-normal" title="<?php echo $ligne["description"]; ?>"><?php echo $shortDescription; ?>...</div>
+                <div class="fw-light">#<span id="id-btn"><?php echo $x; ?> </span> created in<span id="date-btn"><?php echo $ligne["task_datetime"]; ?></span> </div>
+                <div id="description-btn" class="fst-normal" title="<?php echo $ligne["description"]; ?>"><?php echo $shortDescription; ?></div>
             </div>
             <div class="mx-3 mb-1 mt-1">
                 <span id="priority-btn" class="btn-primary px-2 py-1 rounded-2"><?php echo $ligne["namep"]; ?></span>
@@ -75,17 +77,18 @@
     function saveTask()
     {
         global $Connexion;
-        $title=$_POST["title"];
+        $title= htmlspecialchars($_POST["title"]);
+       
         $type=$_POST["task-type"];
         if($type=="Feature"){
             $types=1;
         }else{
             $types=2;
         }
-        $selectPriority=$_POST["select-priority"];
-        $selectStatus=$_POST["select-status"];
-        $date=$_POST["task-date"];
-        $description=$_POST["task-description"];
+        $selectPriority=$_POST["select_priority"];
+        $selectStatus=$_POST["select_status"];
+        $date=$_POST["task_date"];
+        $description=htmlspecialchars($_POST["task_description"]);
         //SQL INSERT
         $insertRquest="INSERT INTO tasks VALUES(null,'$title','$types','$selectPriority','$selectStatus','$date','$description')"; 
         if (mysqli_query($Connexion,$insertRquest)) {
@@ -108,10 +111,10 @@
         }else{
             $types=2;
         }
-        @$select1=$_POST["select-priority"];
-        @$select2=$_POST["select-status"];
-        @$date=$_POST["task-date"];
-        @$description=$_POST["task-description"];
+        @$select1=$_POST["select_priority"];
+        @$select2=$_POST["select_status"];
+        @$date=$_POST["task_date"];
+        @$description=$_POST["task_description"];
 
         $val="UPDATE tasks SET title='$title',type_id='$types' ,priority_id='$select1',status_id='$select2',task_datetime='$date',description='$description' WHERE id='$id'";
         if (mysqli_query($Connexion,$val)) {
@@ -120,7 +123,7 @@
             echo "Error updating task: " . mysqli_error($Connexion);
         }
         $_SESSION['message'] = "Task has been updated successfully !";
-        header('location: index.php');
+        header('location:index.php');
     }
 
     function deleteTask()
@@ -135,7 +138,7 @@
             echo "Error deleting task: " . mysqli_error($Connexion);
         }
         $_SESSION['message'] = "Task has been deleted successfully !";
-        header('location: index.php');
+        header('location:index.php');
                     
     }
 
