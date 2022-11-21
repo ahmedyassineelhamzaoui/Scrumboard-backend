@@ -18,7 +18,7 @@ session_start();
  @$id=$_POST["id"];
  $sql="SELECT * FROM tasks WHERE id='$id'";
  $result=mysqli_query($Connexion,$sql);
- while($ligne = mysqli_fetch_assoc($result)){
+ $ligne = mysqli_fetch_array($result);
 ?>
                <div id="form-task" >
 				<form  action="scripts.php"  method="POST" >
@@ -71,7 +71,7 @@ session_start();
 								<input value="<?php echo $ligne["task_datetime"];?>" name="task_date" type="date" class="x form-control" id="task-date" >
 							</div>
 							<div class="mb-0">
-								<label class="form-label">Description</label>
+								<label for="task-description" class="form-label">Description</label>
 								<textarea  name="task_description" class="x form-control" rows="10" id="task-description" ><?php echo $ligne["description"];?></textarea>
 							</div>
 						    </div>
@@ -85,7 +85,6 @@ session_start();
 				</form>
 		
                 </div>
-				<?php }?>
 				<div class="header">
 
 <!--Content before waves-->

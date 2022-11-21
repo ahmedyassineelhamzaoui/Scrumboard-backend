@@ -25,7 +25,10 @@
     function getTasks($val)
     {     
         global $Connexion;
-        $request = "SELECT * FROM tasks JOIN types ON tasks.type_id=types.idt JOIN priorities ON tasks.priority_id=priorities.idp WHERE status_id='$val'";
+        $request = "SELECT * FROM tasks
+         JOIN types ON tasks.type_id=types.idt
+         JOIN priorities ON tasks.priority_id=priorities.idp 
+         WHERE status_id='$val'";
         $result  = mysqli_query($Connexion, $request);
         $x=0;
         while($ligne= mysqli_fetch_assoc($result)){		
@@ -101,7 +104,6 @@
    
     function updateTask()
     {
-        
         global $Connexion;
         @$id=$_POST["id"];
         @$title=$_POST["title"];
@@ -122,7 +124,8 @@
         } else {
             echo "Error updating task: " . mysqli_error($Connexion);
         }
-        $_SESSION['message'] = "Task has been updated successfully !";
+        $_SESSION['update'] = "Task has been updated successfully !";
+
         header('location:index.php');
     }
 
@@ -137,7 +140,7 @@
         } else {
             echo "Error deleting task: " . mysqli_error($Connexion);
         }
-        $_SESSION['message'] = "Task has been deleted successfully !";
+        $_SESSION['delete'] = "Task has been deleted successfully !";
         header('location:index.php');
                     
     }

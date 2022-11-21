@@ -11,13 +11,13 @@
       formData.addEventListener('submit',(e)=>{
         console.log(title.value.length);
         console.log(title.value.trim() ==0);
-        if(title.value=="" || title.value.trim().length ===0 || title.value.length>40){
+        if(title.value=="" || title.value.trim().length ===0 || title.value.length>70){
             formData.title.classList.add("border-danger");
             formData.title.classList.add("border-2");
             errurtitleMessage.classList.remove("d-none");
             e.preventDefault();
         }
-        else if(title.value!="" && title.value.length<=40 ){
+        else if(title.value!="" && title.value.length<=70 ){
             formData.title.classList.remove("border-danger");
             formData.title.classList.remove("border-2");
             errurtitleMessage.classList.add("d-none");
